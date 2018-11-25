@@ -21,7 +21,12 @@ var _ = Describe("Black-Scholes pricing", func() {
 		RiskFree = 2.34
 	})
 
-	It("should calculate Call() prices properly", func() {
+	It("should implement formula.Interface", func() {
+		_, ok := interface{}(&b).(Interface)
+		Expect(ok).To(BeTrue())
+	})
+
+	It("should calculate Call() prices properly", func() { // nolint: dupl
 		By("using 60 65 0.25y 30%")
 		b = BlackScholes{
 			Formula: Formula{
@@ -93,7 +98,7 @@ var _ = Describe("Black-Scholes pricing", func() {
 		Expect(b.Call()).To(BeNumerically("~", 0.5322, 0.0001))
 	})
 
-	It("should calculate Put() prices properly", func() {
+	It("should calculate Put() prices properly", func() { // nolint: dupl
 		By("using 60 65 0.25y 30%")
 		b = BlackScholes{
 			Formula: Formula{

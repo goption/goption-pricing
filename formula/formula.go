@@ -30,7 +30,7 @@ var RiskFree = 2.34 // nolint: gochecknoglobals
 // The current implementation comes from gonum, although the use
 // of this variable allows the implementation to vary without
 // modifying the interface (aka The Adapter Pattern)
-var N func(float64) float64 = distuv.UnitNormal.CDF
+var N func(float64) float64 = distuv.UnitNormal.CDF // nolint: gochecknoglobals
 
 // Years returns the number of years from one time to another.
 // You can also use time.Since(<someTime>).Hours() / 8760 to do this.
