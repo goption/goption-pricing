@@ -20,18 +20,17 @@ import (
 	"gonum.org/v1/gonum/stat/distuv"
 )
 
-// TODO: Make N a variable of type func instead of a func
-// The compiler complains because this function has a type of distuv.Normal
-// in its library. It would make a lot more sense to use it like this as a
-// variable so the implementation could be altered without requiring changes
-// to the source code here....
-// var N func(float64) float64 = distuv.UnitNormal
-
 // TODO: Write a function that updates the RiskFree rate.
 
 // RiskFree represents r in the Black-Scholes formula.
 // It is generally defined as the rate of a 3-month T-Bill.
 var RiskFree = 2.34 // nolint: gochecknoglobals
+
+// N is the Normalized CDF (NORMSDIST in Excel/Sheets) function.
+// The current implementation comes from gonum, although the use
+// of this variable allows the implementation to vary without
+// modifying the interface (aka The Adapter Pattern)
+var N func(float64) float64 = distuv.UnitNormal.CDF
 
 // Years returns the number of years from one time to another.
 // You can also use time.Since(<someTime>).Hours() / 8760 to do this.
@@ -41,8 +40,14 @@ func Years(from, to time.Time) float64 {
 
 // N is the Cumulative Normal Distributionn function.
 // It is currently an adapter to Gonum's CDF function.
-func N(n float64) float64 {
-	return distuv.UnitNormal.CDF(n)
+//func N(n float64) float64 {
+//return distuv.UnitNormal.CDF(n)
+//}
+
+type Interface interface {
+	Call() float64
+	Put() float64
+	Calculate() (float64, float64)
 }
 
 type Formula struct {
