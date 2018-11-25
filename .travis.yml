@@ -12,13 +12,12 @@ git:
   depth: 3
 
 install:
-- go get -u ./...
-- go get -u github.com/onsi/ginkgo/ginkgo github.com/onsi/gomega github.com/mattn/goveralls
-- curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $GOPATH/bin v1.12.3
+- go get -u github.com/mattn/goveralls
+- make depend
 
 script:
-- ginkgo -p -r -race -randomizeAllSpecs -randomizeSuites -failOnPending -trace -compilers 2
-- golangci-lint run ./...
+- make lint
+- make test
 
 after_success:
 - ginkgo -r -covermode=set

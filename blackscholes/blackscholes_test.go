@@ -6,7 +6,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	. "github.com/goption/option-pricing/blackscholes"
+	. "github.com/goption/goption-pricing/blackscholes"
 )
 
 var _ = Describe("Black-Scholes pricing", func() {
