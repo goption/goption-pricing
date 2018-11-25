@@ -1,0 +1,39 @@
+# Copyright (C) 2018 Brian Hazeltine <onwsk8r@gmail.com> https://wasthat.me
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+## gomod.yml
+# This file contains snippets for use with Golang modules (ie no $GOPATH).
+# These snippets handle caching and fetching vendor dependencies.
+#
+# This creates a directory called .pkg inside the repository root to hold
+# the vendored dependencies, and symlinks $GOPATH/pkg to it.
+
+# https://docs.gitlab.com/ce/ci/caching
+# This cache key will persist between pipelines. This minimizes the amount of time
+# spent in the build stage because the only necessary dependency management will
+# be retrieving new versions of dependencies.
+.build_cache: &build_cache
+    key: ${CI_PROJECT_PATH}_module
+    paths:
+      - .pkg
+
+.build: &build
+  - ./${GBS}/gitlab-ci/ssh-for-ci.sh
+  - mkdir -pv .pkg && rm -v ${GOPATH}/pkg && ln -sv ${PWD}/.pkg ${GOPATH}/pkg
+  - make depend
+
+.build_nocache: &build_nocache
+  - ./${GBS}/gitlab-ci/ssh-for-ci.sh
+  - make depend
