@@ -1,0 +1,60 @@
+# Copyright (C) 2018 Brian Hazeltine <onwsk8r@gmail.com> https://wasthat.me
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+image: golang:1.11
+
+# https://docs.gitlab.com/ce/ci/variables/
+variables:
+  GIT_DEPTH: 3 # --depth 3
+  GIT_STRATEGY: fetch # fetch vs clone
+  GIT_SUBMODULE_STRATEGY: recursive
+  RESTORE_CACHE_ATTEMPTS: 3
+  USE_GOPATH: 'true'
+  GBS: 'relative/path/to/this/folder'
+
+# The yml files included below assume these stages
+stages:
+  - build
+  - test
+
+# Make sure to update these paths to include the path to the submodule
+# (eg '/gitlab-ci/global.yml' => '/dev/gitlab-ci/global.yml' if this repo
+# has been cloned into the dev folder of your repo)
+include:
+  # You can also include by URL
+  # - 'https://github.com/onwsk8r/golang-build-scripts/gitlab-ci/global.yml'
+  - '/gitlab-ci/gomod.yml'
+  - '/gitlab-ci/test.yml'
+
+# By defining these globally, if the cache is not available for some reason,
+# the job will try to build it instead of just failing because it's not available.
+cache: *build_cache # Cache the vendor directory
+before_script: *build # Run `make vendor`
+
+# Build pre-builds the cache in the before_script
+build:
+  stage: build
+  script:
+    - echo "Build successful"
+  retry: 1
+
+# These next two jobs both run in the test stage, as defined by the
+# jobs they implement. These jobs are implemented directly because
+# they did not need to be modified in any way.
+test:
+  extends: .test_test
+
+lint:
+  extends: .test_lint

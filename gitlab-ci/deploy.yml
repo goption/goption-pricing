@@ -1,0 +1,51 @@
+# Copyright (C) 2018 Brian Hazeltine <onwsk8r@gmail.com> https://wasthat.me
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+## ecr
+build:
+  stage: build
+  script:
+    - $(aws ecr get-login --no-include-email --region us-east-1)
+    - docker build -t $REPOSITORY_URL .
+    - docker push $REPOSITORY_URL
+  only:
+    - master
+  tags:
+    - docker
+
+## deploy go doc to s3
+# pages:
+#   stage: deploy
+#   dependencies:
+#     - test
+#   script:
+#     # No parallel tests or race detection with covermode=set
+#     - mkdir coverage
+#     - ginkgo -r -covermode=set
+#     - 'echo "mode: set" > coverage/profile'
+#     - tail -q -n+2 $(find -name "*\.coverprofile") >> coverage/profile
+#     - go tool cover -html coverage/profile -o coverage/profile.html
+#   artifacts:
+#     paths:
+#       - coverage
+#     expire_in: 3650 days
+
+## goreleaser
+artifacts:
+  stage: deploy
+  script: go build
+  artifacts:
+    paths:
+      - $CI_PROJECT_NAME
