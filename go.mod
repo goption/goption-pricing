@@ -13,6 +13,12 @@ require (
 	github.com/pelletier/go-toml v1.2.0 // indirect
 	github.com/pkg/errors v0.8.0 // indirect
 	github.com/sdboyer/constext v0.0.0-20170321163424-836a14457353 // indirect
-	gonum.org/v1/gonum v0.0.0-20181124210156-b3c4e4046788
+	golang.org/x/exp v0.0.0-20181112044915-a3060d491354 // indirect
+	golang.org/x/net v0.0.0-20181114220301-adae6a3d119a // indirect
+	golang.org/x/sync v0.0.0-20181108010431-42b317875d0f // indirect
+	golang.org/x/sys v0.0.0-20181122145206-62eef0e2fa9b // indirect
+	golang.org/x/tools v0.0.0-20181122213734-04b5d21e00f1 // indirect
+	gonum.org/v1/gonum v0.0.0-20181125185008-b630de2f2264
 	gonum.org/v1/netlib v0.0.0-20181029234149-ec6d1f5cefe6 // indirect
+	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 )

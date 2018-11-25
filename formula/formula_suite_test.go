@@ -1,4 +1,4 @@
-package blackscholes_test
+package formula_test
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestBlackscholes(t *testing.T) {
+func TestFormula(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Black-Scholes Suite")
+	RunSpecs(t, "Formula Suite")
 }
