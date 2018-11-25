@@ -1,14 +1,14 @@
-# Goption-pricing
+# Option pricing
 
 A library of option pricing formulae, currently limited to Black-Scholes.
 
 ### Some Badges
 
-[![Build Status](https://travis-ci.org/onwsk8r/goption-pricing.svg?branch=master)](https://travis-ci.org/onwsk8r/goption-pricing) [![Coverage Status](https://coveralls.io/repos/github/onwsk8r/goption-pricing/badge.svg?branch=master)](https://coveralls.io/github/onwsk8r/goption-pricing?branch=master) [![Documentation](https://godoc.org/github.com/onwsk8r/goption-pricing?status.svg)](http://godoc.org/github.com/onwsk8r/goption-pricing) ![Code Size](https://img.shields.io/github/languages/code-size/onwsk8r/goption-pricing.svg) [![Go Report Card](https://goreportcard.com/badge/github.com/onwsk8r/goption-pricing)](https://goreportcard.com/report/github.com/onwsk8r/goption-pricing) [![GitHub issues](https://img.shields.io/github/issues/onwsk8r/goption-pricing.svg)](https://github.com/onwsk8r/goption-pricing/issues) [![license](https://img.shields.io/github/license/onwsk8r/goption-pricing.svg?maxAge=2592000)](https://github.com/onwsk8r/goption-pricing/LICENSE)
+[![Build Status](https://travis-ci.org/goption/option-pricing.svg?branch=master)](https://travis-ci.org/goption/option-pricing) [![Coverage Status](https://coveralls.io/repos/github/goption/option-pricing/badge.svg?branch=master)](https://coveralls.io/github/goption/option-pricing?branch=master) [![Documentation](https://godoc.org/github.com/goption/option-pricing?status.svg)](http://godoc.org/github.com/goption/option-pricing) ![Code Size](https://img.shields.io/github/languages/code-size/goption/option-pricing.svg) [![Go Report Card](https://goreportcard.com/badge/github.com/goption/option-pricing)](https://goreportcard.com/report/github.com/goption/option-pricing) [![GitHub issues](https://img.shields.io/github/issues/goption/option-pricing.svg)](https://github.com/goption/option-pricing/issues) [![license](https://img.shields.io/github/license/goption/option-pricing.svg?maxAge=2592000)](https://github.com/goption/option-pricing/LICENSE)
 
 ## Documentation
 
-Use the [Source](https://godoc.org/github.com/onwsk8r/goption-pricing/blackscholes)!
+Use the [Source](https://godoc.org/github.com/goption/option-pricing/blackscholes)!
 
 ## Usage
 
