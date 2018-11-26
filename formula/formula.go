@@ -72,12 +72,14 @@ func (f *Formula) SetStrikePrice(p float64) {
 	f.StrikePrice = p
 }
 
+// SetVolatility sets the volatility in %
 func (f *Formula) SetVolatility(v float64) {
-	f.Volatility = v
+	f.Volatility = v / 100
 }
 
+// SetTTL sets the TTL in days for now
 func (f *Formula) SetTTL(t time.Duration) {
-	f.TTL = float64(t)
+	f.TTL = float64(t) / 365
 }
 
 // D1 calculates the interim D1 value
