@@ -22,7 +22,7 @@ var _ = Describe("Black-Scholes pricing", func() {
 	})
 
 	It("should implement formula.Interface", func() {
-		_, ok := interface{}(&b).(Interface)
+		_, ok := interface{}(&b).(Calculator)
 		Expect(ok).To(BeTrue())
 	})
 

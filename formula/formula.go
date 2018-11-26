@@ -38,23 +38,46 @@ func Years(from, to time.Time) float64 {
 	return to.Sub(from).Hours() / 8760 // 24 * 365
 }
 
-// N is the Cumulative Normal Distributionn function.
-// It is currently an adapter to Gonum's CDF function.
-//func N(n float64) float64 {
-//return distuv.UnitNormal.CDF(n)
-//}
-
-type Interface interface {
+// Calculator types are capable of calculating prices for options.
+// BlackScholes and Binomial would be examples of Calculators.
+type Calculator interface {
 	Call() float64
 	Put() float64
 	Calculate() (float64, float64)
+	SetStockPrice(float64)
+	SetStrikePrice(float64)
+	SetVolatility(float64)
+	SetTTL(time.Duration)
 }
 
+// Formula is a base type that the formulae embed.
+// It provides methods that are common to all pricing types such as Greeks
+// and some interim calculations (for example d1, which is used by
+// Black-Scholes). This type can't calculate option prices by itself,
+// but it provides a lot of handy information.
 type Formula struct {
 	StockPrice  float64
 	StrikePrice float64
 	Volatility  float64
 	TTL         float64
+}
+
+// TODO: make these functions StockPrice, make the var stockPrice, and add GetStockPrice()
+
+func (f *Formula) SetStockPrice(p float64) {
+	f.StockPrice = p
+}
+
+func (f *Formula) SetStrikePrice(p float64) {
+	f.StrikePrice = p
+}
+
+func (f *Formula) SetVolatility(v float64) {
+	f.Volatility = v
+}
+
+func (f *Formula) SetTTL(t time.Duration) {
+	f.TTL = float64(t)
 }
 
 // D1 calculates the interim D1 value
@@ -68,3 +91,6 @@ func (f *Formula) D1() float64 {
 func (f *Formula) D2() float64 {
 	return f.D1() - f.Volatility*math.Sqrt(f.TTL)
 }
+
+// TODO: Add the greeks!
+// TODO: Add SetVolatility()
